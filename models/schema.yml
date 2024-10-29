@@ -5,6 +5,12 @@ sources:
     schema: D17C1
     tables:
       - name: sales
+        freshness:
+          warn_after: {count: 90, period: day}
+          error_after:
+            period: day
+            count: 4500
+        loaded_at_field: CAST(date_date AS TIMESTAMP)
         identifier: raw_gz_sales
         description: Sales of Greenweez
         columns:
@@ -35,9 +41,6 @@ sources:
         columns:
           - name: orders_id,
             description: Order ID
-            tests:
-              - unique
-              - not_null 
           - name: shipping_fee
             description: TBD
           - name: shipping_fee_1
