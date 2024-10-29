@@ -6,7 +6,43 @@ sources:
     tables:
       - name: sales
         identifier: raw_gz_sales
+        description: Sales of Greenweez
+        columns:
+          - name: orders_id
+            description: Order ID
+          - name: pdt_id
+            description: Product ID
+          - name: date_date
+            description: TBD
+          - name: revenue
+            description: TBD
+          - name: quantity
+            description: TBD
       - name: product
         identifier: raw_gz_product
+        description: Product catalog of Greenweez
+        columns:
+          - name: products_id
+            description: Product ID
+            tests:
+              - unique
+              - not_null                  
+          - name: purchSE_PRICE
+            description: TBD
       - name: ship
         identifier: raw_gz_ship
+        description: Table of shipping data of Greenweez
+        columns:
+          - name: orders_id,
+            description: Order ID
+            tests:
+              - unique
+              - not_null 
+          - name: shipping_fee
+            description: TBD
+          - name: shipping_fee_1
+            description: TBD
+          - name: logCost
+            description: TBD
+          - name: ship_cost
+            description: TBD
