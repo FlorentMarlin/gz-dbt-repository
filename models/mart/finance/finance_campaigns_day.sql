@@ -1,7 +1,7 @@
 SELECT 
     finance_days.date_date AS date_date,
     finance_days.operational_margin - campaigns.ads_cost AS ads_margin,
---    finance_days.revenue / COUNT(finance_days.nb_transactions) AS average_basket,
+    finance_days.average_basket AS average_basket,
     finance_days.operational_margin AS operational_margin,
     campaigns.ads_cost AS ads_cost,
     campaigns.ads_impression AS ads_impression,
