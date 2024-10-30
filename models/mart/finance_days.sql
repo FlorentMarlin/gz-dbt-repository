@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 SELECT date_date
 , count(distinct orders_id) AS nb_transactions
 , sum(revenue) as revenue
