@@ -49,3 +49,15 @@ sources:
             description: TBD
           - name: ship_cost
             description: TBD
+      - name: adwords
+        identifier: raw_gz_adwords
+        description: Table of data from adwords
+      - name: bing
+        identifier: raw_gz_bing
+        description: Table of data from bing
+      - name: criteo
+        identifier: raw_gz_criteo
+        description: Table of data from criteo
+      - name: facebook
+        identifier: raw_gz_facebook
+        description: Table of data from facebook
