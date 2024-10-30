@@ -93,3 +93,23 @@ sources:
           - name: ads_cost
           - name: impression
           - name: click
+
+models:
+  - name: int_campaigns
+    description: Table created as the union of ad data for four providers
+  - name: int_campaigns_day
+    description: Ad data for four providers aggregated by date
+    columns:
+      - name: date_date
+        description: Date of the campaign
+        tests:
+          - not_null
+          - unique
+      - name: ads_cost
+        description: Cumulated cost of ads per day
+      - name: ads_impression
+        description: Cumulated impressions per day
+      - name: ads_click
+        description: Cumulated clicks per day
+              
+              
