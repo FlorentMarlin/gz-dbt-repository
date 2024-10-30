@@ -42,5 +42,5 @@ models:
       +materialized: table
     mart:
       +materialized: table
-      finance:
-        +schema: finance
+      finance: #this is the folder in the dbt file-structure
+        +schema: finance #this is a string that will be concantenated with the project-name to create a new dataset in BigQuery 
