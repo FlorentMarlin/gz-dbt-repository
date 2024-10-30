@@ -111,5 +111,7 @@ models:
         description: Cumulated impressions per day
       - name: ads_click
         description: Cumulated clicks per day
+  - name: finance_campaigns_day
+    description: Table joining finance and ad campaign data
               
               
