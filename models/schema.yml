@@ -56,6 +56,8 @@ sources:
           - name: date_date
           - name: paid_source
           - name: campaign_key
+            tests:
+              - dbt_utils.not_empty_string
           - name: camPGN_name
           - name: ads_cost
           - name: impression
