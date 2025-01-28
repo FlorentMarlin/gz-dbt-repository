@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: raw
-    schema: D17C1
+    schema: gz_raw_data
     tables:
       - name: sales
         freshness:
