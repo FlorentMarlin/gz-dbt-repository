@@ -8,6 +8,7 @@ SELECT
     campaigns.ads_clicks AS ads_clicks,
     finance_days.revenue AS revenue,
     finance_days.margin AS margin
-FROM {{ ref('finance_days')}} as finance_days
-LEFT JOIN {{ ref('int_campaigns_day')}} as campaigns
+FROM {{ ref('int_campaigns_day')}} as campaigns
+FULL OUTER JOIN {{ ref('finance_days')}} as finance_days
 USING(date_date)
+ORDER BY date_date DESC
