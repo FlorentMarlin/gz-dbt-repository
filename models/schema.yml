@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: raw
-    schema: D17C1
+    schema: gz_raw_data
     tables:
       - name: sales
         freshness:
@@ -49,3 +49,169 @@ sources:
             description: TBD
           - name: ship_cost
             description: TBD
+      - name: adwords
+        identifier: raw_gz_adwords
+        description: Table of data from adwords
+        columns:
+          - name: date_date
+          - name: paid_source
+          - name: campaign_key
+            tests:
+              - dbt_utils.not_empty_string
+          - name: camPGN_name
+          - name: ads_cost
+          - name: impression
+          - name: click
+      - name: bing
+        identifier: raw_gz_bing
+        description: Table of data from bing
+        columns:
+          - name: date_date
+          - name: paid_source
+          - name: campaign_key
+          - name: camPGN_name
+          - name: ads_cost
+          - name: impression
+          - name: click
+      - name: criteo
+        identifier: raw_gz_criteo
+        description: Table of data from criteo
+        columns:
+          - name: date_date
+          - name: paid_source
+          - name: campaign_key
+          - name: camPGN_name
+          - name: ads_cost
+          - name: impression
+          - name: click
+      - name: facebook
+        identifier: raw_gz_facebook
+        description: Table of data from facebook
+        columns:
+          - name: date_date
+          - name: paid_source
+          - name: campaign_key
+          - name: camPGN_name
+          - name: ads_cost
+          - name: impression
+          - name: click
+
+models:
+  - name: int_sales_margin
+    description: margin calculation per order
+    columns:
+      - name: orders_id
+        description: orders key
+        tests:
+          - not_null
+      - name: products_id
+        description: products key
+        tests:
+          - not_null
+      - name: margin
+        description: Margin = Revenue - Purchase_cost
+        tests:
+          - not_null
+      - name: Purchase_cost
+        description: Purchase_cost = Quantity * Purchase_price
+        tests:
+          - not_null
+      - name: date_date
+        description: date of the order
+        tests:
+          - not_null
+      - name: revenue
+        description: sum of revenue per order
+        tests:
+          - not_null
+      - name: quantity
+        description: sum of quantity per order
+        tests:
+          - not_null
+    tests:
+      - unique:
+          column_name: "(orders_id || '-' || products_id)"
+  - name: int_orders_margin
+    description: margin calculation per order
+    columns:
+      - name: orders_id
+        description: primary key
+        tests:
+          - unique
+          - not_null
+      - name: margin
+        description: margin = revenue - purchase_cost
+        tests:
+          - not_null
+      - name: Purchase_cost
+        description: purchase_cost = quantity * purchase_price
+        tests:
+          - not_null
+      - name: date_date
+        description: date of the order
+        tests:
+          - not_null
+      - name: revenue
+        description: sum of revenue per order
+        tests:
+          - not_null
+      - name: quantity
+        description: sum of quantity per order
+        tests:
+          - not_null      
+  - name: int_orders_operational
+    description: operational margin calculation per order
+    columns:
+      - name: orders_id
+        description: primary key
+        tests:
+          - unique
+          - not_null
+      - name: date_date
+        description: date of the order
+        tests:
+          - not_null
+      - name: operational_margin
+        description: operational_margin = margin + shipping_fee - logcost - ship_cost
+      - name: quantity
+        description: sum of quantity per order
+        tests:
+          - not_null
+      - name: revenue
+        description: sum of revenue per order
+        tests:
+          - not_null
+      - name: purchase_cost
+        description: purchase_cost = quantity * purchase_price
+        tests:
+          - not_null
+      - name: margin
+        description: margin = revenue - purchase_cost
+        tests:
+          - not_null
+      - name: shipping_fee
+        description: the price the customer pays for shipping
+      - name: logcost
+        description: the cost of preparing the parcel in the distribution centre/warehouse
+      - name: ship_cost
+        description: shipping cost paid by Greenweez to the carrier/logistics provider              
+  - name: int_campaigns
+    description: Table created as the union of ad data for four providers
+  - name: int_campaigns_day
+    description: Ad data for four providers aggregated by date
+    columns:
+      - name: date_date
+        description: Date of the campaign
+        tests:
+          - not_null
+          - unique
+      - name: ads_cost
+        description: Cumulated cost of ads per day
+      - name: ads_impression
+        description: Cumulated impressions per day
+      - name: ads_click
+        description: Cumulated clicks per day
+  - name: finance_campaigns_day
+    description: Table joining finance and ad campaign data
+              
+              
